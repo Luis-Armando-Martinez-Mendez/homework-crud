@@ -1,7 +1,17 @@
+using CRUD_web.Data;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDBcontext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Cadena SQL"));
+
+});
 
 var app = builder.Build();
 
@@ -22,6 +32,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Cliente}/{action=Lista}/{id?}");
 
 app.Run();
